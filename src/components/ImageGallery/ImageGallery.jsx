@@ -1,19 +1,20 @@
 const ImageGallery = ({ images }) => {
   return (
-    <div>
-      {" "}
-      {images.length > 0 && (
-        <ul>
-          {images.map((data) => (
-            <li key={data.id}>
+    <ul>
+      {Array.isArray(images) &&
+        images.map((image) => {
+          return (
+            <li key={image.id}>
               <div>
-                <img src={data.urls.small} alt={data.alt_description} />
+                <img
+                  src={image.cover_photo.urls.small}
+                  alt={image.alt_description}
+                />
               </div>
             </li>
-          ))}
-        </ul>
-      )}
-    </div>
+          );
+        })}
+    </ul>
   );
 };
 

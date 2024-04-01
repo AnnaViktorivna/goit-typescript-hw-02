@@ -1,37 +1,75 @@
-const FormSearch = ({ onSearch }) => {
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    const form = evt.currentTarget;
-    console.log;
-    const queryImages = form.elements.query.value;
+// import { useState } from "react";
+import { Form, Formik, Field } from "formik";
+import * as Yup from "yup";
 
-    // Якщо текстове поле порожнє, виводимо повідомлення
-    // і припиняємо виконання функції.
-    if (form.elements.queryImages.value.trim() === "") {
-      alert("Please enter search term!");
-      return;
-    }
+const searchFormSchema = Yup.object().shape({
+  searchTitle: Yup.string().required("Search term is required!"),
+});
 
-    // У протилежному випадку викликаємо пропс
-    // і передаємо йому значення поля
-    onSearch(queryImages);
-    form.reset();
+const FORM_INITIAL_VALUES = {
+  searchTitle: "",
+};
+
+const FormSearch = ({ onSetSearchQuery }) => {
+  const handleSubmit = (values) => {
+    onSetSearchQuery(values.searchTitle);
+    // console.log(values);
   };
+  // const [resImg, setResImg] = useState("");
+
+  // const handleSubmit = (evt) => {
+  //   evt.preventDefault();
+  //   const form = evt.currentTarget;
+  //   const queryImages = form.elements.img.value.trim();
+
+  //   if (queryImages === "") {
+  //     alert("Please enter search term!");
+  //     return;
+  //   }
+  //   onSearch(queryImages);
+  //   form.reset();
+  //   setResImg("");
+  // };
+
+  // const handleChange = (evt) => {
+  //   setResImg(evt.target.value); // Оновлення стану з введеним текстом
+  // };
   return (
     <div>
+      <Formik
+        initialValues={FORM_INITIAL_VALUES}
+        validationSchema={searchFormSchema}
+        onSubmit={handleSubmit}
+      >
+        <Form>
+          <h2>Search product by brand or name</h2>
+          <label>
+            <Field
+              type='text'
+              name='searchTitle'
+              placeholder='Enter search query...'
+            />
+            {/* <ErrorMessage component='p' name='searchTerm' /> */}
+          </label>
+          <button type='submit' aria-label='Search'>
+            🔍
+          </button>
+        </Form>
+      </Formik>
+      {/*       
       {" "}
       <header>
         <form onSubmit={handleSubmit}>
           <input
             type='text'
-            // autocomplete='off'
-            // autofocus
             placeholder='Search images and photos'
-            name='query'
+            name='img'
+            value={resImg}
+            onChange={handleChange}
           />
           <button type='submit'>Search</button>
         </form>
-      </header>
+      </header> */}
     </div>
   );
 };
