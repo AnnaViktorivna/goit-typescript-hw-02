@@ -178,3 +178,27 @@ npm install axios
 }
 }
 },
+
+// useEffect(() => {
+// async function fetchPhotos() {
+// try {
+// setLoading(true);
+// const data = await requestImages();
+// // console.log(data);
+// setImages(data.results);
+// } catch (error) {
+// console.error("Error fetching images:", error);
+// } finally {
+// setLoading(false);
+// }
+// }
+
+// fetchPhotos();
+// }, []);
+
+// export const requestImages = async () => {
+// const { data } = await axios.get(
+// `https://api.unsplash.com/collections?page=8&client_id=a7ioE0htOPw-O5srRHJVQMt3ROHyiYRBO5_YsKRY6OQ`
+// );
+// return data;
+// };

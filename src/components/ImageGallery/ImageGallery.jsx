@@ -2,9 +2,9 @@ const ImageGallery = ({ images }) => {
   return (
     <ul>
       {Array.isArray(images) &&
-        images.map((image) => {
+        images.map((image, index) => {
           return (
-            <li key={image.id}>
+            <li key={index}>
               <div>
                 <img
                   src={image.cover_photo.urls.small}

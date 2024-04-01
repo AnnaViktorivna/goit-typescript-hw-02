@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
-import { requestImages, requestPhotosByQuery } from "./components/api";
+import { requestPhotosByQuery } from "./components/api";
 import Loader from "./components/Loader/Loader";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
 import FormSearch from "./components/FormSearch/FormSearch";
@@ -12,25 +12,6 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [queryImg, setQueryImg] = useState("");
-  // let queryImg = "";
-  // let page = 0;
-
-  useEffect(() => {
-    async function fetchPhotos() {
-      try {
-        setLoading(true);
-        const data = await requestImages();
-        // console.log(data);
-        setImages(data.results);
-      } catch (error) {
-        console.error("Error fetching images:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchPhotos();
-  }, []);
 
   useEffect(() => {
     if (queryImg.length === 0) return;
@@ -46,7 +27,6 @@ function App() {
             return [...data.results];
           }
         });
-        // setImages(data.results);
       } catch (error) {
         console.error("Error fetching images:", error);
       } finally {
