@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import axios from "axios";
+
 import { requestPhotosByQuery } from "./components/api";
 import Loader from "./components/Loader/Loader";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
@@ -17,7 +17,6 @@ function App() {
   const [page, setPage] = useState(1);
   const [queryImg, setQueryImg] = useState("");
   const [error, setError] = useState(false);
-  // const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
@@ -60,12 +59,8 @@ function App() {
     setPage((page) => page + 1);
   };
 
-  const openModal = (image) => {
+  const handleImageClick = (image) => {
     setSelectedImage(image);
-  };
-
-  const closeModal = () => {
-    setSelectedImage(null);
   };
 
   return (
@@ -74,20 +69,15 @@ function App() {
       <FormSearch onSetSearchQuery={onSetSearchQuery} />
       {loading && <Loader />}
       {error && <p>{error}</p>}
-      {!error && <ImageGallery images={images} onClick={openModal} />}
+      {!error && <ImageGallery images={images} onClick={handleImageClick} />}
       {images.length > 0 && <LoadMore loadMore={loadMore} />}
-      <Modal
-        isOpen={!!selectedImage}
-        onRequestClose={closeModal}
-        shouldCloseOnOverlayClick={true}
-        contentLabel='Image Modal'
-      >
-        {selectedImage && (
-          <ImageModal image={selectedImage} onClose={closeModal} />
-        )}
-      </Modal>
 
-      {/* <ImageModal isOpen={isModalOpen} onClose={closeModal} /> */}
+      {selectedImage && (
+        <ImageModal
+          image={selectedImage}
+          onClose={() => setSelectedImage(null)}
+        />
+      )}
     </div>
   );
 }
