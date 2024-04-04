@@ -23,6 +23,7 @@ const ImageModal = ({ image, onClose }) => {
       contentLabel='Image Modal'
       shouldCloseOnEsc={true}
       shouldCloseOnOverlayClick={true}
+      shouldReturnFocusAfterClose={false}
     >
       <button onClick={onClose}>X</button>
       <h2 style={{ color: "red" }}>{image.cover_photo.alt_description}</h2>

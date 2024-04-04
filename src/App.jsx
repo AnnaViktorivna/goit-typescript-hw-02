@@ -26,17 +26,15 @@ function App() {
       try {
         setLoading(true);
         const data = await requestPhotosByQuery(queryImg, page);
+        if (data.results.length === 0) {
+          setError("No images found");
+        }
 
-        setImages((prevImages) => {
-          if (prevImages.length > 0) {
-            return [...prevImages, ...data.results];
-          } else {
-            if (data.results.length === 0) {
-              setError("No images found");
-            }
-            return data.results;
-          }
-        });
+        if (page == 1) {
+          setImages(data.results);
+        } else {
+          setImages((prevImages) => [...prevImages, ...data.results]);
+        }
       } catch (error) {
         setError("Error fetcing images");
       } finally {
@@ -53,6 +51,7 @@ function App() {
       return;
     }
     setQueryImg(searchTitle);
+    // setPage(1);
   };
 
   const loadMore = () => {
