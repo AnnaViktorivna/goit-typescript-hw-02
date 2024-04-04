@@ -1,5 +1,5 @@
 import Modal from "react-modal";
-
+import css from "./ImageModal.module.css";
 const customStyles = {
   content: {
     top: "50%",
@@ -17,6 +17,7 @@ const customStyles = {
 const ImageModal = ({ image, onClose }) => {
   return (
     <Modal
+      className={css.Modal}
       isOpen={!!image}
       onRequestClose={onClose}
       style={customStyles}
@@ -25,13 +26,15 @@ const ImageModal = ({ image, onClose }) => {
       shouldCloseOnOverlayClick={true}
       shouldReturnFocusAfterClose={false}
     >
-      <button onClick={onClose}>X</button>
-      <h2 style={{ color: "red" }}>{image.cover_photo.alt_description}</h2>
-      <img
-        src={image.cover_photo.urls.regular}
-        alt={image.cover_photo.alt_description}
-      />
-      <p>{image.cover_photo.alt_description}</p>
+      <div className={css.containerImg}>
+        {/* <button onClick={onClose}>X</button> */}
+        <img
+          className={css.imgModal}
+          src={image.cover_photo.urls.regular}
+          alt={image.cover_photo.alt_description}
+        />
+        <p>{image.cover_photo.alt_description}</p>
+      </div>
     </Modal>
   );
 };
