@@ -35,6 +35,17 @@ function App() {
         } else {
           setImages((prevImages) => [...prevImages, ...data.results]);
         }
+
+        // setImages((prevImages) => {
+        //   if (prevImages.length > 0) {
+        //     return [...prevImages, ...data.results];
+        //   } else {
+        //     if (data.results.length === 0) {
+        //       setError("No images found");
+        //     }
+        //     return data.results;
+        //   }
+        // });
       } catch (error) {
         setError("Error fetcing images");
       } finally {
@@ -51,7 +62,7 @@ function App() {
       return;
     }
     setQueryImg(searchTitle);
-    // setPage(1);
+    setPage(1);
   };
 
   const loadMore = () => {
