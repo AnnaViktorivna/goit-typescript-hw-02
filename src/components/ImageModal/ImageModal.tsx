@@ -1,5 +1,7 @@
 import Modal from "react-modal";
-import css from "./ImageModal.module.css";
+import React, { FC } from "react";
+import { Image } from "../../type";
+// import css from "./ImageModal.module.css";
 const customStyles = {
   content: {
     top: "50%",
@@ -13,12 +15,21 @@ const customStyles = {
     backgroundColor: "rgba(0, 0, 0, 0.9)",
   },
 };
+interface ImageModalProps {
+  selectedImage: Image | null;
+  onClose: () => void;
+  modalIsOpen: boolean;
+}
 
-const ImageModal = ({ image, onClose }) => {
+const ImageModal: FC<ImageModalProps> = ({
+  selectedImage,
+  onClose,
+  modalIsOpen,
+}) => {
   return (
     <Modal
-      className={css.Modal}
-      isOpen={!!image}
+      // className={css.Modal}
+      isOpen={modalIsOpen}
       onRequestClose={onClose}
       style={customStyles}
       contentLabel='Image Modal'
@@ -26,17 +37,23 @@ const ImageModal = ({ image, onClose }) => {
       shouldCloseOnOverlayClick={true}
       shouldReturnFocusAfterClose={false}
     >
-      <div className={css.containerImg}>
-        {/* <button onClick={onClose}>X</button> */}
-        <img
-          className={css.imgModal}
-          src={image.cover_photo.urls.regular}
-          alt={image.cover_photo.alt_description}
-        />
-        <p>{image.cover_photo.alt_description}</p>
-      </div>
+      {selectedImage && (
+        <div>
+          {/* <button onClick={onClose}>X</button> */}
+          <img
+            // className={css.imgModal}
+            src={selectedImage.cover_photo.urls.regular}
+            alt={selectedImage.cover_photo.alt_description}
+          />
+          <p>{selectedImage.cover_photo.alt_description}</p>
+        </div>
+      )}
     </Modal>
   );
 };
 
 export default ImageModal;
+
+{
+  /* <div className={css.containerImg}></div> */
+}

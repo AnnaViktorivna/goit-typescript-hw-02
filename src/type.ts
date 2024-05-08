@@ -1,5 +1,4 @@
 export interface Image {
-  id: string;
   cover_photo: {
     id: string;
     urls: {

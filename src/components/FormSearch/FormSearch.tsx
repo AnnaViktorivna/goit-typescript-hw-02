@@ -17,26 +17,26 @@ const FormSearch: FC<FormSearchProps> = ({ onSetSearchQuery, toast }) => {
       onSetSearchQuery(value.trim());
       (e.target as HTMLFormElement).reset();
     }
-
-    return (
-      <>
-        <h2>Search</h2>
-        <form onSubmit={handleSubmit}>
-          <label>
-            <input
-              type='text'
-              name='searchTitle'
-              placeholder='Enter search query...'
-            />
-            {/* <ErrorMessage /> */}
-          </label>
-          <button type='submit' aria-label='Search'>
-            🔍
-          </button>
-        </form>
-      </>
-    );
   };
+
+  return (
+    <>
+      <h2>Search</h2>
+      <form onSubmit={handleSubmit}>
+        <label>
+          <input
+            type='text'
+            name='searchTitle'
+            placeholder='Enter search query...'
+          />
+          {/* <ErrorMessage /> */}
+        </label>
+        <button type='submit' aria-label='Search'>
+          🔍
+        </button>
+      </form>
+    </>
+  );
 };
 
 export default FormSearch;

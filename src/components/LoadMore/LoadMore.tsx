@@ -1,9 +1,13 @@
-import React from "react";
-
-const LoadMore = ({ loadMore }) => {
+import React, { FC } from "react";
+import { Image } from "../../type";
+interface LoadMoreProps {
+  loadMore: () => void;
+  images: Image[];
+}
+const LoadMore: FC<LoadMoreProps> = ({ loadMore, images }) => {
   return (
     <div>
-      <button onClick={loadMore}>Load More</button>
+      {images.length > 0 && <button onClick={loadMore}>Load More</button>}
     </div>
   );
 };

@@ -14,19 +14,11 @@ import { Image } from "./type";
 
 Modal.setAppElement("#root");
 
-// interface ImageType {
-//   id: string;
-//   alt_description: string;
-//   cover_photo: {
-//     urls: {
-//       small: string;
-//     };
-//   };
-// }
 function App() {
   const [images, setImages] = useState<Image[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
+  const [btnLoadMore, setBtnLoadMore] = useState<boolean>(false);
   const [queryImg, setQueryImg] = useState<string>("");
   const [error, setError] = useState<boolean | string>(false);
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
@@ -38,15 +30,8 @@ function App() {
       try {
         setLoading(true);
         const data = await requestPhotosByQuery(queryImg, page);
-        if (!data) {
-          setError("No images found");
-        }
-
-        if (page >= 1) {
-          setImages(data.results);
-        } else {
-          setImages((prevImages) => [...prevImages, ...data.results]);
-        }
+        setImages((prevImages) => [...prevImages, ...data.results]);
+        setBtnLoadMore(data.total_pages > page);
       } catch (error) {
         setError("Error fetcing images");
       } finally {
@@ -67,11 +52,12 @@ function App() {
   };
 
   const loadMore = (): void => {
-    setPage((page) => page + 1);
+    setPage((prevpage) => prevpage + 1);
   };
 
   const handleImageClickAndOpenModal = (id: string): void => {
-    const imageModal = images.filter((image) => image.id === id)[0];
+    const imageModal = images.filter((image) => image.cover_photo.id === id)[0];
+    console.log();
     setSelectedImage(imageModal);
     setIsOpen(true);
     document.body.classList.add("modal-open");
@@ -91,10 +77,14 @@ function App() {
       {!error && (
         <ImageGallery images={images} onClick={handleImageClickAndOpenModal} />
       )}
-      {images.length > 0 && <LoadMore loadMore={loadMore} />}
+      {btnLoadMore && <LoadMore loadMore={loadMore} images={images} />}
 
       {selectedImage && (
-        <ImageModal image={selectedImage} onClose={isCloseModal} />
+        <ImageModal
+          selectedImage={selectedImage}
+          onClose={isCloseModal}
+          modalIsOpen={modalIsOpen}
+        />
       )}
     </div>
   );
