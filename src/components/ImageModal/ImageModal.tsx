@@ -1,7 +1,8 @@
 import Modal from "react-modal";
 import React, { FC } from "react";
 import { Image } from "../../type";
-// import css from "./ImageModal.module.css";
+import css from "./ImageModal.module.css";
+
 const customStyles = {
   content: {
     top: "50%",
