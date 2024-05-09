@@ -49,6 +49,7 @@ function App() {
     }
     setQueryImg(searchTitle);
     setPage(1);
+    setImages([]);
   };
 
   const loadMore = (): void => {
